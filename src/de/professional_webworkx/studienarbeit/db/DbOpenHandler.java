@@ -3,9 +3,15 @@ package de.professional_webworkx.studienarbeit.db;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
+
+import de.professional_webworkx.studienarbeit.model.Team;
 
 public class DbOpenHandler {
 
@@ -14,6 +20,16 @@ public class DbOpenHandler {
 	private static final String DB	= "tutorial";
 	private static final String HOST	= "localhost";
 	private static final String URL	= "jdbc:mysql://"+HOST+":3306/"+DB;
+	
+	// Queries
+	private static final String GET_ALL_TEAMS	= "SELECT * FROM team";
+	
+	// Team-Columns
+	private static final String TEAM_TEAMID	= "id";
+	private static final String TEAM_TEAMNAME	= "teamName";
+	private static final String TEAM_TEAMICON	= "teamIconURL";
+	private static final String TEAM_STADION	= "stadion";
+	
 	
 	private static DbOpenHandler dbOpenHandler;
 	private Connection connection;
@@ -89,6 +105,49 @@ public class DbOpenHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	// mit dieser Methode holen wir uns eine Liste, die wir auf Team getyped haben
+	public List<Team> getAllTeams() {
+		List<Team> teams = new ArrayList<Team>();
+		
+		try {
+			// wir basteln und ein Statement zusammen und holen uns damit ein 
+			// Set an Datensaetzen aus der Datenbank
+			// hier stand vorhin Statement, das habe ich durch PreparedStatement ersetzt
+			PreparedStatement statement = (PreparedStatement) connection.prepareStatement(GET_ALL_TEAMS);
+			// Die Konstante GET_ALL_TEAMS haben wir uns erstellt um Tippfehler bei den
+			// SELEct Statements zu vermeiden, bei diesem einfach Beispiel geht das jetzt
+			// noch, allerdings kann es auch sehr viel komplexer werden.
+			ResultSet rs = statement.executeQuery(GET_ALL_TEAMS);
+			while(rs.next()) {
+				// in der Variablen rs stecken nun alle Teams drin, die in unserer Datenbank rumdümpeln
+				// in der while-Schleife gehen wir durch das ResultSet durch und holen und nach und nach
+				// die einzelnen Einträge
+				
+				// da es sich um Teams handelt, basteln wir uns ein neues Team-Object
+				Team team = new Team();
+				// um nun die Informationen aus dem Set zu holen gibt's 2 Möglichkeiten, entweder
+				// man gibt die Spalte als INT Wert an oder man kann auch den Namen der Spalte 
+				// angeben. Ich arbeite mit den Namen der Spalten, da ist es gute Praxis, 
+				// wenn man sich dafür wieder Konstanten erstellt.
+				team.setTeamID(Integer.parseInt(rs.getString(TEAM_TEAMID)));
+				team.setTeamName(rs.getString(TEAM_TEAMNAME));
+				team.setTeamIconURL(rs.getString(TEAM_TEAMICON));
+				team.setStadion(rs.getString(TEAM_STADION));
+				
+				// nach einem Durchlauf wir das neu erstellte Team-Object an die
+				// teams-Liste angefügt
+				teams.add(team);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		// wenn nichts schief ging, dann haben wir nun eine Liste aus Teams, die 
+		// 18 Einträge enthalten sollte, diese geben wir als Ergebnis der Methode
+		// zurück
+		return teams;
 	}
 	
 }

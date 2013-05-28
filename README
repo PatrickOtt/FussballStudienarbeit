@@ -1,0 +1,29 @@
+Willkommen zum zweiten Teil.
+
+Diesmal möchte ich ein Servlet bauen, das die Teams und Spieler aus der Datenbank holt und
+im Browser darstellt. Anschließend trennen wir das noch auf und lassen die JSP Datei
+den HTML Kram erledigen und das Servlet macht die Java-Seite, das ist aus meiner Sicht am 
+Sinnvollsten, denn im Servlet haben wir keine HTML Syntax-Prüfung und tun uns eh schwer die
+ganzen HTML Sachen zu schreiben.
+
+Okay, genug geredet, los geht's... Achja, den Ton lass ich erstmal weg, die Qualität beim letzten Mal
+war schrecklich.
+
+So, damit wir dann gleich vernünftig arbeiten können, erstellen wir uns gleich eine Klasse
+Team und eine Player.
+Hier handelt es sich um Datenmodell-Klassen, daher kommen die in ein passendes Paket .model
+
+
+Damit ist das Servlet nun auch startklar und wir können es mal auf unseren ApplicationServer deployen.
+Für das Tutorial verwende ich den Glassfish v3 Open Source Edition..
+
+Schnipp..
+Nachdem mein Netbook nun den Glassfish endlich gestartet hat, hier das Ergebnis:
+
+Okay, das Servlet funktioniert nun also, eine kleine Änderung innerhalb der DbOpenHandler Klasse noch.
+
+Den Code lade ich bei GitHub in das Repository "FussballStudienarbeit", es kann dort per Git oder als
+zip Datei heruntergeladen werden.
+
+Im nächsten Video trennen wir dann den HTML Code aus dem Servlet raus und lassen eine JSP Datei 
+den Teil übernehmen.
