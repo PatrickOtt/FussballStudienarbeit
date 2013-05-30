@@ -8,9 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
+import javax.persistence.PrePersist;
 
+import com.mysql.jdbc.PreparedStatement;
+
+import de.professional_webworkx.studienarbeit.model.Player;
 import de.professional_webworkx.studienarbeit.model.Team;
 
 public class DbOpenHandler {
@@ -22,13 +24,23 @@ public class DbOpenHandler {
 	private static final String URL	= "jdbc:mysql://"+HOST+":3306/"+DB;
 	
 	// Queries
-	private static final String GET_ALL_TEAMS	= "SELECT * FROM team";
+	private static final String GET_ALL_TEAMS			= "SELECT * FROM team";
+	private static final String GET_ALL_PLAYERS		= "SELECT * FROM player";
+	private static final String GET_PLAYER_BY_TEAM	= "SELECT * FROM player WHERE teamID = ";
+	private static final String GET_TEAM_BY_ID 		= "SELECT * FROM team WHERE id = ";
 	
 	// Team-Columns
 	private static final String TEAM_TEAMID	= "id";
 	private static final String TEAM_TEAMNAME	= "teamName";
 	private static final String TEAM_TEAMICON	= "teamIconURL";
 	private static final String TEAM_STADION	= "stadion";
+	
+	// Player-Columns
+	private static final String PLAYER_ID			= "id";
+	private static final String PLAYER_FIRSTNAME	= "firstName";
+	private static final String PLAYER_LASTNAME	= "lastName";
+	private static final String PLAYER_TEAMID		= "teamID";
+	
 	
 	
 	private static DbOpenHandler dbOpenHandler;
@@ -150,4 +162,47 @@ public class DbOpenHandler {
 		return teams;
 	}
 	
+	public Team getTeamByID(int teamID) {
+		
+		try {
+			PreparedStatement preparedStatement = 
+					(PreparedStatement) connection.prepareStatement(GET_TEAM_BY_ID);
+			
+			ResultSet rs = preparedStatement.executeQuery(GET_TEAM_BY_ID + " " + teamID);
+			Team team = new Team();
+			while(rs.next()) {
+				team.setTeamID(rs.getShort(TEAM_TEAMID));
+				team.setTeamName(rs.getString(TEAM_TEAMNAME));
+				team.setTeamIconURL(rs.getString(TEAM_TEAMICON));
+				team.setStadion(rs.getString(TEAM_STADION));
+			}
+			return team;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public List<Player> getAllPlayer() {
+		
+		List<Player> players = new ArrayList<Player>();
+		
+		try {
+			PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement(GET_ALL_PLAYERS);
+			ResultSet rs = preparedStatement.executeQuery(); // Shift + Alt + L
+			while(rs.next()) {
+				Player player = new Player();
+				player.setPlayerID(Integer.parseInt(rs.getString(PLAYER_ID)));
+				player.setLastName(rs.getString(PLAYER_LASTNAME));
+				player.setTeamID(getTeamByID(Integer.parseInt(rs.getString(PLAYER_TEAMID))));
+				players.add(player);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return players;
+	}
 }

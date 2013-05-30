@@ -1,3 +1,35 @@
+Willkommen zum nächsten Teil des Tutorials.
+
+Diesmal wollen wir uns eine zentrale Startseite für unsere WebAnwendung bauen, von der aus
+wir zu unserer Teams- und später auch Spielerseite navigieren können und die eben jedem 
+Benutzer als ersten angezeigt wird, wenn er unsere Anwendung aufruft.
+
+Diese Seite bekommt den Namen "index.jsp", die wurde bei der Erstellung der Anwendung 
+bereits automatisch von Eclipse erstellt.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Okay, in diesem Video räumen wir noch etwas im JSP File "teams.jsp" auf. Genauer gesagt soll noch etwas
 Java-Code rausfliegen.
 

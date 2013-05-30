@@ -5,9 +5,13 @@
 <html>
   <head>
     	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    	<title>GlassFish JSP Page</title>
+    	<title>Startseite::FussballStudienarbeit JSP</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <h1>Herzlich willkommen in der FussballDatenbank</h1>
+    <!-- Basteln wir uns eine ganz einfache Startseite -->
+    <a href="teams">zur Team&uuml;bersicht</a><br/>
+    <a href="players">zur Spielerübersicht</a><br/><br/>
+    
   </body>
 </html> 

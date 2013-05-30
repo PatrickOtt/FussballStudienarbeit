@@ -65,7 +65,6 @@ public class TeamServlet extends HttpServlet {
     	// RequestDispatcher, der den Request des Clients dann an die JSP übergeben kann
     	// damit sagen wir dem requestDispatcher gleich an welches File er nachher
     	// sein request und response-Object übergeben soll.
-    	
     	RequestDispatcher requestDispatcher = request.getRequestDispatcher("teams.jsp");
     	
     	// zur Weiterleitung
