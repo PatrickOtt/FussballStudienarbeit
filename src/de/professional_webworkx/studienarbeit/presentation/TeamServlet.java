@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 
+import de.professional_webworkx.studienarbeit.business.TeamService;
 import de.professional_webworkx.studienarbeit.db.DbOpenHandler;
 import de.professional_webworkx.studienarbeit.model.Team;
 
@@ -22,7 +24,17 @@ import de.professional_webworkx.studienarbeit.model.Team;
 public class TeamServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static DbOpenHandler dbOpenHandler;
+	/*
+	 * Durch die Annotation @EJB wird der CDI Mechanismus beansprucht und wenn ein
+	 * TeamService Object benötigt wird, erhalten wir durch den Glassfish dieses 
+	 * Object vollautomatisch und ganz bequem injeziert und können auf die 
+	 * public Methoden daraus zugreifen 
+	 */
+	
+	@EJB
+	private TeamService service;
+	
+	// private static DbOpenHandler dbOpenHandler;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -51,9 +63,9 @@ public class TeamServlet extends HttpServlet {
     	
     	// DB-Zugriff
     	// hier holen wir die Handler-Instance
-    	dbOpenHandler = DbOpenHandler.getDatabaseInstance();
+    	//dbOpenHandler = DbOpenHandler.getDatabaseInstance();
     	// Liste der Teams aus der Datenbank holen
-    	List<Team> allTeams = dbOpenHandler.getAllTeams();
+    	List<Team> allTeams = service.getAllTeams();
     	
     	// hierzu ein paar kleine Änderungen im Servlet.
     	/*
