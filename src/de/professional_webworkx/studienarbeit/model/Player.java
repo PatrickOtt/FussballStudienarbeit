@@ -2,14 +2,17 @@ package de.professional_webworkx.studienarbeit.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @NamedQueries({
@@ -28,7 +31,7 @@ public class Player implements Serializable {
 	// Named-Query-Konstanten
 	public static final String GET_ALL_PLAYER 	= "Player.get_all_player";
 	
-	private int playerID;
+	private int id;
 	private String firstName;
 	private String lastName;
 	private Team teamID;
@@ -44,11 +47,11 @@ public class Player implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
 	public int getPlayerID() {
-		return playerID;
+		return id;
 	}
 
 	public void setPlayerID(int playerID) {
-		this.playerID = playerID;
+		this.id = playerID;
 	}
 
 	public String getFirstName() {
@@ -67,6 +70,7 @@ public class Player implements Serializable {
 		this.lastName = lastName;
 	}
 	
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="teamID")
 	public Team getTeamID() {
 		return teamID;
