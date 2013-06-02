@@ -14,7 +14,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @NamedQueries({
-	@NamedQuery(name=Team.GET_ALL_TEAMS, query="Select t From Team t")
+	@NamedQuery(name=Team.GET_ALL_TEAMS, query="Select t From Team t"),
+	@NamedQuery(name=Team.GET_TEAM_BY_ID, query="Select t From Team t WHERE t.teamID = :teamID")
 })
 @Entity
 @Table(name="team")
@@ -26,6 +27,7 @@ public class Team implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String GET_ALL_TEAMS	= "Team.get_all_teams";
+	public static final String GET_TEAM_BY_ID	= "Team.get_team_by_id";
 	
 
 	private int id;
