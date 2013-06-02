@@ -31,7 +31,7 @@
  	in Tabellenform darstellen, wie im Servlet gesehen.	
 -->
 <!-- Noch eine Ü*berschrift -->
-<h1>Vereine der 1. Bundesliga</h1> <a href="index.jsp">zur&uuml;ck zur Startseite</a>
+<h1>Vereine der 1. Bundesliga</h1> <a href="index.jsp">zur&uuml;ck zur Startseite</a><br/>
 <ul>
 	<c:forEach items="#{teams}" var="team">
 	<!-- Damit ist nun die foreach-Schleife aus der Java-Welt gänzlich verschwunden und der JSP Bearbeiter

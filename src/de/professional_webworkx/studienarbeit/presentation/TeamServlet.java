@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 
+import com.itextpdf.text.Document;
+
 import de.professional_webworkx.studienarbeit.business.TeamService;
 import de.professional_webworkx.studienarbeit.db.DbOpenHandler;
 import de.professional_webworkx.studienarbeit.model.Team;
@@ -152,7 +154,6 @@ public class TeamServlet extends HttpServlet {
 			}
 		}
 		*/
-    	
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
