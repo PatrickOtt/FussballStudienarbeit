@@ -39,7 +39,9 @@
 		auf den HTML Teil konzentrieren kann.
 		Versuchen wir mal eben noch das Logo einzubinden, mal sehen ob's klappt.
 	 -->
-		<li>${team.teamName }&nbsp; <img src="${team.teamIconURL }"></li>
+		<li>${team.teamName }&nbsp; <img src="${team.teamIconURL }"> 
+			<a href="detailsTeam.jsp?teamid=${team.teamID }">Details</a>
+		</li>
 	</c:forEach>
 </ul>
 

@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @NamedQueries({
@@ -75,6 +76,15 @@ public class Team implements Serializable {
 
 	public void setStadion(String stadion) {
 		this.stadion = stadion;
+	}
+
+	@OneToMany(mappedBy="teamID")
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
 	}
 	
 	

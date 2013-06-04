@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.PrePersist;
 
@@ -197,6 +199,30 @@ public class DbOpenHandler {
 				player.setPlayerID(Integer.parseInt(rs.getString(PLAYER_ID)));
 				player.setLastName(rs.getString(PLAYER_LASTNAME));
 				player.setTeamID(getTeamByID(Integer.parseInt(rs.getString(PLAYER_TEAMID))));
+				players.add(player);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return players;
+	}
+	
+	// kopieren der bisherigen getAllPlayers() Methode
+	public List<Player> getAllPlayerByTeamId(int teamID) {
+		
+		List<Player> players = new ArrayList<Player>();
+		
+		try {
+			PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement(GET_PLAYER_BY_TEAM + "" + teamID);
+			ResultSet rs = preparedStatement.executeQuery(); // Shift + Alt + L
+			
+			while(rs.next()) {
+				Player player = new Player();
+				player.setPlayerID(Integer.parseInt(rs.getString(PLAYER_ID)));
+				player.setLastName(rs.getString(PLAYER_LASTNAME));
+				player.setTeamID(getTeamByID(Integer.parseInt(rs.getString(PLAYER_TEAMID))));
+				Logger.getLogger(DbOpenHandler.class.getSimpleName()).log(Level.INFO, player.getLastName());
 				players.add(player);
 			}
 		} catch (SQLException e) {
