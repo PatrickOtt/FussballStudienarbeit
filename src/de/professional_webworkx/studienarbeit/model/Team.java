@@ -1,5 +1,5 @@
 package de.professional_webworkx.studienarbeit.model;
-
+// Tippfehler :-(
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

@@ -12,7 +12,7 @@
 	<ui:define name="content">
 		<h1>Alle Vereine der 1. Bundesliga im Überblick</h1>
 		<h:form id="teamTable">
-		<h:dataTable value="#{teamService.allTeams}" var="team">
+		<h:dataTable value="#{serviceBean.allTeams}" var="team">
 		<h:column>
 			<f:facet name="header">Vereinslogo</f:facet>
 			<h:graphicImage value="#{team.teamIconURL}"/>
@@ -20,6 +20,10 @@
 		<h:column>
 			<f:facet name="header">Vereinsname</f:facet>
 			#{team.teamName}
+		</h:column>
+		<h:column>
+			<f:facet name="header"></f:facet>
+			<h:commandLink value="bearbeiten" action="#{serviceBean.editTeam(team.teamID)}" />
 		</h:column>
 		</h:dataTable>
 		</h:form>

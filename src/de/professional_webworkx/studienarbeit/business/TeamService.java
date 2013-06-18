@@ -1,17 +1,17 @@
 package de.professional_webworkx.studienarbeit.business;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.servlet.http.HttpServletResponse;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -22,9 +22,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfPTableHeader;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.codec.Base64.OutputStream;
 
 import de.professional_webworkx.studienarbeit.model.Team;
 
@@ -36,15 +34,18 @@ import de.professional_webworkx.studienarbeit.model.Team;
  *
  */
 // EJB's Enterprise Java Beans sind im Grunde ganz normale Java-Klassen (POJO's)
-@Named
-@Stateless(name="TeamService")
+@Stateless
 public class TeamService implements Serializable {
 
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	// da kommt unser Team rein, das wir bearbeiten wollen
+	// dazu lassen wir uns noch eben die Getter- / Sette generieren
 	
+
 	// per CDI (Contexts and Dependency Injection) lassen wir uns zur Laufzeit
 	// vom Glassfish einen EntityManager "injezieren", d.h. der Glassfish kümmert
 	// sich um die Erzeugung eines EntityManagers und verwaltet diesen und 
@@ -71,6 +72,7 @@ public class TeamService implements Serializable {
 		// später noch implementiert werden
 		return query.getResultList();
 	}
+	
 	
 	public Document export2PDF() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -105,5 +107,11 @@ public class TeamService implements Serializable {
 		*/
 		
 		return pdf;
+	}
+
+	// damit updaten wir das schon vorhandene Team
+	// in der Datenbank
+	public void saveTeam(Team currentTeam) {
+		em.merge(currentTeam);
 	}
 }
