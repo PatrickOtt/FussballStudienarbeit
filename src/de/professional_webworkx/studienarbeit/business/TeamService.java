@@ -12,6 +12,9 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -114,4 +117,25 @@ public class TeamService implements Serializable {
 	public void saveTeam(Team currentTeam) {
 		em.merge(currentTeam);
 	}
+
+	// Diese Methode holt uns nun mit Hilfe einer CriteriaQuery das gewünschte Team
+	public Team getTeamByCriteria(int teamID) {
+
+		// vom EntityManager lassen wir uns einen CriteriaBuilder geben
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		// mit dem Builder können wir uns nur eine CriteriaQuery<T> erzeugen
+		CriteriaQuery<Team> cq = cb.createQuery(Team.class);
+		
+		Root<Team> team = cq.from(Team.class);
+		// hiermit definieren wir unserer WHERE-Klausel, was muss übereinstimmen, damit wir das Team
+		// geliefert bekommen -> in unserem Fall die teamID, die übergeben wir ja auch
+		cq.where(cb.equal(team.get("teamID"), teamID));
+		
+		// daraus wird eine TypedQuery<Team>
+		TypedQuery<Team> query = em.createQuery(cq);
+		
+		// hier lassen wir uns dann ein Object zurückliefern
+		return query.getSingleResult();
+	}
+
 }
