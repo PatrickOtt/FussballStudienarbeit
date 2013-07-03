@@ -36,6 +36,7 @@ public class Team implements Serializable {
 	private String teamName;
 	private String teamIconURL;
 	private String stadion;
+	private int stadionId;
 	private List<Player> players = new ArrayList<Player>();
 	
 	public Team() {
@@ -87,6 +88,15 @@ public class Team implements Serializable {
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
+
+	public int getStadionId() {
+		return stadionId;
+	}
+
+	public void setStadionId(int stadionId) {
+		this.stadionId = stadionId;
+	}
+	
 	
 	
 }

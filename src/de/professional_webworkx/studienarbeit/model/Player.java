@@ -16,7 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @NamedQueries({
-	@NamedQuery(name=Player.GET_ALL_PLAYER, query="Select p From Player p")
+	@NamedQuery(name=Player.GET_ALL_PLAYER, query="Select p From Player p"),
+	@NamedQuery(name=Player.GET_PLAYER_BY_ID, query="Select p From Player p WHERE p.playerID = :playerId")
 	})
 
 @Entity
@@ -30,6 +31,7 @@ public class Player implements Serializable {
 	
 	// Named-Query-Konstanten
 	public static final String GET_ALL_PLAYER 	= "Player.get_all_player";
+	public static final String GET_PLAYER_BY_ID	= "Player.get_player_by_id";
 	
 	private int id;
 	private String firstName;
