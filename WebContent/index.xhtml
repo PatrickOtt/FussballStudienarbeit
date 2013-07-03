@@ -3,23 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
->
+xmlns:f="http://java.sun.com/jsf/core">
 <f:view>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
-<!-- Hier wird nun der Inhaltsbereich definiert -->
-<!-- es soll das Template master.xhtml verwendet werden -->
+<h:body>
 	<ui:composition template="/WEB-INF/templates/main.xhtml">
 	<ui:define name="title">Startseite::Fussball Studienarbeit</ui:define>
-		<!-- an der Stelle "content" innerhalb der Datei master.xhtml soll nun der Text 
-		eingefügt werden, der zwischen den ui:define Tags steht, testen wir das mal. -->
 		<ui:define name="content">
 			#{msg.welcome}
 		</ui:define>
 	</ui:composition>
-</body>
+</h:body>
 </f:view>
 </html>

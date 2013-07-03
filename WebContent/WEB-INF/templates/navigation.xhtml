@@ -4,17 +4,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Insert title here</title>
-</head>
 <h:body>
 <ui:composition>
 	 <h:form id="navigationsForm">
 	 <ul id="navigation">
+	 <strong>Faces</strong><br/>
 	 	<li><h:commandLink action="index" value="Startseite"/></li>
+	 	<h:panelGroup rendered="#{empty serviceBean.currentCustomer || serviceBean.currentCustomer == null}">
+	 	<li><h:commandLink action="login" value="zum Login"/></li>
+	 	</h:panelGroup>
+	 	<h:panelGroup rendered="#{not empty serviceBean.currentCustomer}">
+	 	<li><h:commandLink action="#{serviceBean.logout}" value="Logout"/></li>
+	 	</h:panelGroup>
 	 	<li><h:commandLink action="teams" value="Vereinstabelle"/></li>
 	 	<!-- usw. -->
+	 	<strong>Servlets</strong>
+	 	<li><a href="/FussballStudienarbeit/players">Spieler-Servlet</a></li>
+	 	<li><a href="/FussballStudienarbeit/teams">Vereins-Servlet</a></li>
 	 </ul>
 	 <!-- 
 	 	Das muss alles innerhalb einen <h:form> Tags sein, sonst werden die commandLinks nicht als

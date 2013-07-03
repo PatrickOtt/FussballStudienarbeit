@@ -24,7 +24,7 @@
 		<h:column>
 			<f:facet name="header"></f:facet>
 			<h:panelGrid columns="2">
-			<h:commandLink value="bearbeiten" action="#{serviceBean.editTeam(team.teamID)}" />
+			<h:commandLink value="bearbeiten" action="#{serviceBean.editTeam(team.teamID)}" rendered="#{serviceBean.checkUserIsAdministrator}"/>
 			<h:commandLink value="Teamdetails" action="#{serviceBean.detailsTeam(team.teamID)}" />
 			</h:panelGrid>
 		</h:column>
